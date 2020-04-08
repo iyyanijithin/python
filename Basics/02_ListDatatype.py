@@ -31,6 +31,10 @@ print(list1[1:3])
 list1.insert(3, "roger")
 print(list1)
 
+#Slicing of list
+for element in list1:
+    print(element)
+
 
 #to add to the end
 list1.append('rafa')
@@ -46,3 +50,37 @@ del list1[0]
 print(list1)
 print(list1[0])
 
+newlist1 = [1,2,3,4,5]
+#Range of indexes
+for data in newlist1[1:3]:
+    print(data)
+
+print("****************")
+for data in newlist1[:3]:
+    print(data)
+print("****************")
+#-1 is the last value
+print(newlist1[-1])
+
+print("****************")
+#Go from -3 to -1
+#[-4,-3,-2,-1]
+#Always the second index is excluding and is removed
+for data in newlist1[-3:-1]:
+    print(data)
+
+print("****************")
+if 2 in newlist1:
+    print('found elment')
+print("****************")
+print(len(newlist1))
+
+
+print("***************")
+mylist2 = newlist1.copy()
+print(mylist2)
+
+
+print("*************")
+numlist = [100,2,3,4,5]
+print(numlist[-3:])

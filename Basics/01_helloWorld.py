@@ -17,6 +17,11 @@ va1,va2,val3 = 3,4,"This is soo cool";
 print(va1,va2,val3)
 
 
+#Swap two variables in python
+num1,num2 = 1,2
+num1,num2 = num2,num1
+print(num1,num2)
+
 #How do you contact string with int
 print("{} This is how we concat in python {}".format(str, val1))
 

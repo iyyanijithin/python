@@ -28,6 +28,14 @@ driver.find_element_by_css_selector("input[name='name'").send_keys('roger12')
 #//tagname[@attribute=value]
 # check this in  browser console $x("//input[@type='submit']")
 driver.find_element_by_xpath("//input[@type='submit']").submit()
+
+print(driver.find_element_by_class_name("alert-success").text)
+
+
+#find_element_by_link_text
+
+
+
 print(driver.title)
 print(driver.current_url)
 driver.maximize_window()
