@@ -56,6 +56,35 @@ def get_text_objects(layout, ltype="char", t=None):
         pass
     return t
 
+
+
+
+def get_rotation(chars, horizontal_text, vertical_text):
+    rotation = ""
+    hlen = len([t for t in horizontal_text if t.get_text().strip()])
+    vlen = len([t for t in vertical_text if t.get_text().strip()])
+    print(hlen,vlen)
+    if hlen < vlen:
+        clockwise = sum(t.matrix[1] < 0 and t.matrix[2] > 0 for t in chars)
+        anticlockwise = sum(t.matrix[1] > 0 and t.matrix[2] < 0 for t in chars)
+        rotation = "anticlockwise" if clockwise < anticlockwise else "clockwise"
+    return rotation
+
+
+def _nurminen_table_detection(textlines):
+    # TODO: add support for arabic text #141
+    # sort textlines in reading order
+    textlines.sort(key=lambda x: (-x.y0, x.x0))
+    print('entered the table detection algo')
+    return "test"
+
+def extract_tables(textlines):
+    print('ex  tracting tables')
+    _nurminen_table_detection(textlines)
+
+
+
+
 filepath = "data.pdf"
 infile = PdfFileReader(open(filepath, "rb"), strict=False)
 print('Printing the number of pages',infile.getNumPages())
@@ -99,7 +128,16 @@ with open(filepath, "rb") as fileobj:
             dim = (width, height)
             print(dim,layout)
             chars = get_text_objects(layout,ltype="char")
-            print(chars)
 
-
+            horizontal_text = get_text_objects(layout, ltype="horizontal_text")
+            vertical_text = get_text_objects(layout, ltype="vertical_text")
+            for data in horizontal_text:
+                print(data)
+            #Tries to find rotation
+            rotation = get_rotation(chars,horizontal_text,vertical_text)
+            if rotation != "":
+                print('rotation is needed for the page')
+            else:
+                print('No rotation is needed')
+            extract_tables(horizontal_text)
 
