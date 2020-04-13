@@ -7,6 +7,8 @@ from pdfminer.pdfpage import PDFTextExtractionNotAllowed
 from pdfminer.pdfinterp import PDFResourceManager
 from pdfminer.pdfinterp import PDFPageInterpreter
 from pdfminer.converter import PDFPageAggregator
+import numpy as np
+
 
 from pdfminer.layout import (
     LAParams,
@@ -16,6 +18,25 @@ from pdfminer.layout import (
     LTTextLineVertical,
     LTImage,
 )
+
+
+def get_x_coord(textline, align):
+    """Returns the x coordinate of a text row based on the
+    specified alignment.
+    """
+    x_left = textline.x0
+    x_right = textline.x1
+    x_middle = x_left + (x_right - x_left) / 2.0
+    x_coord = {"left": x_left, "middle": x_middle, "right": x_right}
+    return x_coord[align]
+
+
+def find(textedges,x_coord, align):
+    for i, te in enumerate(textedges[align]):
+        if np.isclose(te.x, x_coord, atol=0.5):
+            return i
+    return None
+
 
 def get_text_objects(layout, ltype="char", t=None):
     """Recursively parses pdf layout to get a list of
@@ -76,6 +97,19 @@ def _nurminen_table_detection(textlines):
     # sort textlines in reading order
     textlines.sort(key=lambda x: (-x.y0, x.x0))
     print('entered the table detection algo')
+    textedges = {"left": [], "right": [], "middle": []}
+    for tl in textlines:
+        if len(tl.get_text().strip()) > 1:
+            #print(tl)
+            for align in ["left", "right", "middle"]:
+                x_coord = get_x_coord(tl, align)
+                idx = find(textedges, x_coord, align)
+                print('after find')
+                if idx is None:
+                    print('adding object')
+                else:
+                    print('do some updates')
+
     return "test"
 
 def extract_tables(textlines):
