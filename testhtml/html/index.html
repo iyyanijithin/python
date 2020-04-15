@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Labelling tool</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <div class="jumbotron text-center">
+        <h3>Labelling tool</h3>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-5">
+                <h3>List of untagged files</h3>
+                <div class="list-group">
+                    <a href="#" class="list-group-item">File 1.pdf </a>
+                    <a href="#" class="list-group-item">File 2.pdf</a>
+                    <a href="#" class="list-group-item">File 3.pdf</a>
+                </div>
+                <div>
+                    <h3>Create a teamplate</h3>
+                </div>
+
+                <div>
+                    <button type="button" class="btn btn-primary">Add Template</button>
+                </div>
+                <button type="button" class="btn btn-primary">Add Table</button>
+                <div>
+                    <a href="#" id="insert-more"> Add New Row </a>
+                    <br>
+                    <table id="mytable" class="table">
+                        <thead>
+                            <tr>
+                                <th>Column Name</th>
+                                <th>Column Alias</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <input type="text" id="fee-1" class="fee" name="js-fee">
+                                </td>
+                                <td>
+                                    <input type="text" id="fee-2" class="fee" name="php-fee">
+                                </td>
+                                <td><a href="#">Delete</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-primary">Test Template</button>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <h3>File Priview</h3>
+                <embed src="data.pdf" width="800" height="600" type="application/pdf">
+
+            </div>
+        </div>
+    </div>
+    </div>
+    <script>
+        $("#insert-more").click(function () {
+            $("#mytable").each(function () {
+                var tds = '<tr>';
+                jQuery.each($('tr:last td', this), function () {
+                    tds += '<td>' + $(this).html() + '</td>';
+                });
+                tds += '</tr>';
+                if ($('tbody', this).length > 0) {
+                    $('tbody', this).append(tds);
+                } else {
+                    $(this).append(tds);
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
