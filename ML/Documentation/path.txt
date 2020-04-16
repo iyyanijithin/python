@@ -3,5 +3,5 @@ All the details of ML
 https://drive.google.com/drive/folders/1OFNnrHRZPZ3unWdErjLHod8Ibv2FfG1d?usp=sharing
 
 1) Step 1 : Data preprocessing
-2) 
+2) Step 2 : Regression Algo
 

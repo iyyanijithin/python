@@ -1,0 +1,8 @@
+High level steps for preprocessing is as follows:
+
+1) Load the data using pandas.
+2) Split the data as dependent and feature variables.
+3) If there are some empty data elements then we can use imputer and other library in scklearn in order to populate them.
+4) We need to convert non numberic columns to numeric column, this can be done using OneHotEncoder or LabelEncoder
+5) Feature scaling (This is the process where we bring all the feature variables to the same scale.
+6) Split the data set into x train and y train
