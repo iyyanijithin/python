@@ -1,5 +1,4 @@
 import pygame
-from numba.tests.test_stencils import pyStencilGenerator
 
 
 def printArray(pygame, win, unsorted):
@@ -24,28 +23,30 @@ def printArray(pygame, win, unsorted):
 
 pygame.init()
 win = pygame.display.set_mode((500, 500))
-pygame.display.set_caption('Bubble Sort')
+pygame.display.set_caption('Selection Sort')
 width = 40
 height = 60
 vel = 5
 run = True
 isJump = False
 jumpCount = 10
-unsorted = [5, 4, 3, 2, 1]
+unsorted = [5, 4, 10, 45,  3, 2]
 win.fill((0, 0, 0))
 bg = pygame.image.load("C:\\Work\\git\\python\\Games\\img\\bg.png")
 win.blit(bg, (0, 0))
 font = pygame.font.SysFont("comicsansms", 24)
-text_header = font.render('       Bubble Sort      ', True, (255, 0, 0))
+text_header = font.render('       Selection Sort      ', True, (255, 0, 0))
 header_rect = text_header.get_rect()
 header_rect.y = 200
 win.blit(text_header, header_rect)
 outerCounter = 0
 x = 0
 y = 0
+minElement = 0
+minElementId = 0
 printArray(pygame, win, unsorted)
 while run:
-    #print('In the main loop1')
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             run = False
@@ -53,17 +54,26 @@ while run:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_1]:
             print('Starting the sort')
-            while x < len(unsorted):
-                y = 0
-                while y < len(unsorted) - 1:
-                    if unsorted[y] > unsorted[y + 1]:
-                        temp = unsorted[y]
-                        unsorted[y] = unsorted[y + 1]
-                        unsorted[y + 1] = temp
-                        # print('making swap')
-                    printArray(pygame, win, unsorted)
-                    y = y + 1
+            #looping over all the elements
+            printArray(pygame, win, unsorted)
+            for i, val in enumerate(unsorted):
+                minElement = val
+                minElementId = i
+                for j, valElement in enumerate(unsorted):
+                    if j <= i:
+                        continue
+
+                    if valElement < minElement:
+                        minElement = valElement
+                        minElementId = j
+
+                #At end of this we know the least elemet
+                temp = val
+                unsorted[i] = minElement
+                unsorted[minElementId] = val
                 printArray(pygame, win, unsorted)
-                x = x + 1
+
+            printArray(pygame, win, unsorted)
+
     pygame.time.delay(1000)
 
